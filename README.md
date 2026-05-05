@@ -1,70 +1,94 @@
-# Getting Started with Create React App
+# Lantern Reader
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Lantern Reader is a mobile-first web reader for private serialized stories. It opens like a small personal library, lets the reader choose a book, and then moves into a full-screen reading experience built for phones.
 
-## Available Scripts
+The app is currently centered around **Bae's Anatomy**, with room for future stories on the shelf.
 
-In the project directory, you can run:
+## What It Does
 
-### `npm start`
+- Mobile-first library home screen with a book carousel.
+- Multi-book content model through `src/content/books.js`.
+- Reflowable full-screen reader using CSS-column pagination.
+- Swipe/drag page navigation.
+- Adaptive overlay with:
+  - Library/back action
+  - appearance controls
+  - search
+  - saved items
+  - table of contents
+- Appearance controls:
+  - XS through XL text sizes
+  - Serif, Sans, Literary, Modern, and Mono typefaces
+  - Dark, Sepia, and Solarized themes
+- Dynamic re-pagination when text settings change.
+- Reader state persistence per book.
+- Saved Items system with working page bookmarks and future-ready tabs for notes/highlights.
+- Live search with in-text highlighting and previous/next result navigation.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Reader Philosophy
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+The reader should feel quiet, immersive, and personal. The default state hides controls and lets the text fill the screen. Menus appear only when needed, then get out of the way.
 
-### `npm test`
+The visual target is closer to an intimate ebook reader than a traditional website:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- black or paper-like reading surfaces
+- large, legible type
+- minimal chrome
+- warm restrained accents
+- bottom-sheet controls built for thumbs
 
-### `npm run build`
+## Current Content
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Story data lives in:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```text
+src/content/story.js
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Book registry lives in:
 
-### `npm run eject`
+```text
+src/content/books.js
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+The app currently includes:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- **Bae's Anatomy** - available serialized story
+- **After Hillpoint** - coming soon placeholder
+- **The Velvet File** - coming soon placeholder
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Development
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Install dependencies:
 
-## Learn More
+```bash
+npm install
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Run locally:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```bash
+npm start
+```
 
-### Code Splitting
+Build when requested or before deployment:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```bash
+npm run build
+```
 
-### Analyzing the Bundle Size
+Deploy to GitHub Pages when requested:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```bash
+npm run deploy
+```
 
-### Making a Progressive Web App
+## Project Notes
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Future sessions should read:
 
-### Advanced Configuration
+```text
+AGENT_DESIGN_BIBLE.md
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+That file tracks the current product direction, reader architecture, design decisions, and session workflow.

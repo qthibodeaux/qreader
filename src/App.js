@@ -1,25 +1,27 @@
-import logo from './logo.svg';
 import './App.css';
+import { useState } from 'react';
+import { LibraryView } from './components/library/LibraryView';
+import Reader from './components/reader/Reader';
+import { storyChapters } from './content/story';
+
+const todayKey = new Date().toISOString().slice(0, 10);
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const [selectedBook, setSelectedBook] = useState(null);
+
+  if (selectedBook) {
+    return (
+      <Reader
+        bookData={{
+          ...selectedBook,
+          chapters: storyChapters
+        }}
+        onExit={() => setSelectedBook(null)}
+      />
+    );
+  }
+
+  return <LibraryView todayKey={todayKey} onRead={setSelectedBook} />;
 }
 
 export default App;
