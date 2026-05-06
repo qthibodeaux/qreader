@@ -59,6 +59,8 @@ The reader should feel like a polished mobile ebook reader:
 - Thin progress line at the top.
 - Minimal overlay chrome that appears on tap and fades away.
 - Previous/next navigation and swipe gestures.
+- Reader swipe must keep the legacy three-page feel: render previous/current/next token pages side-by-side with a small visual gap and translate each by its page offset plus `dragX`, so the incoming page is visible during the gesture.
+- Neighbor swipe pages must be inert/non-selectable. Ledger, selection, highlights, notes, and saved-item anchoring should read only from the current token page.
 - Table of contents as a bottom sheet.
 - Bookmark/font-size persistence in localStorage.
 
@@ -67,12 +69,30 @@ Current reader direction supersedes the old sentence-measured pagination in `REA
 - The default reading mode is immersive: black background, large gray serif text, no visible overlay.
 - Text should fill nearly the full app height with small top/bottom/side padding.
 - Paragraphs and sentences may split naturally across pages.
-- Pagination uses a continuous CSS-column text flow, measured after render.
+- Pagination uses a token/page model measured before rendering the visible page.
 - Reader flow includes a placeholder cover page, a second title/dedication page, then one full-page chapter divider before each chapter body.
 - Chapter divider format is `Chapter X` plus the chapter title.
 - Font-size changes trigger reflow and page-count recalculation.
-- Preserve approximate reading position across reflow by carrying a page-progress ratio into the next layout.
+- Preserve reading position across reflow by carrying a token `startWordId` into the next layout, with progress ratio as a fallback.
 - Reader implementation lives in `src/components/reader/Reader.js` and `src/components/reader/Reader.css`.
+
+### Reader Engine Direction
+
+The current reader architecture is token/page based.
+
+- Engine modules live in `src/engine/`.
+- `tokenizeStory(chapters)` converts paragraph text into stable word tokens with `id`, `text`, `normalized`, chapter metadata, paragraph metadata, and paragraph boundary flags.
+- `tagLedgerTokens(tokens, ledgerEntries)` applies Ledger aliases to token sequences and stores matches in `token.ledgerRefs`.
+- `buildBookModel(chapters)` creates a reusable token model for future pagination and exact page-aware Ledger features.
+- `paginateTokens(tokens, layoutOptions)` measures token slices in a hidden browser sandbox and returns exact content pages with `startWordId`, `endWordId`, and `tokens`.
+- `buildPaginatedBookModel(chapters, options)` combines tokenization, Ledger tagging, and measured page creation.
+- `TokenReaderPage` in `src/components/reader/TokenReaderPage.js` renders the new page objects: cover, title, chapter-title, and content pages.
+- Content token spans include `data-word-id`, paragraph/chapter metadata, and `data-ledger-refs` for exact future Ledger, highlight, and note behavior.
+- Reader rendering now displays known page slices through `TokenReaderPage` instead of rendering the entire book in CSS columns.
+- "On This Page" reads exact Ledger entries from `currentPage.tokens` via `getPageLedgerEntries`; do not return to DOM viewport scanning for this feature.
+- Reader search uses `searchTokenPages(readerPages, query)` from `src/engine/searchTokenPages.js`, returning exact `pageIndex`, `startWordId`, and `endWordId` matches.
+- New highlights attach to word id ranges. Older paragraph/character-offset highlights may not render until migrated.
+- Future notes should also attach to word id ranges, not DOM geometry or character offsets.
 
 ### Reader Phase 1 Menu
 
@@ -86,44 +106,52 @@ Current reader menu behavior:
 - Saved Items icon opens the Saved Items sheet. Bookmarking is controlled inside that sheet so one tap does not both bookmark and open the menu.
 - Overlay bottom dock shows page count, book progress, previous/next buttons, current chapter title, and Table of Contents entry.
 - HUD shows one primary book-relative page count. Avoid showing book and chapter page counts at the same time unless the user asks for it.
-- Appearance opens as a bottom sheet and supports SM/MD/LG/XL text size, Serif/Sans typeface, and Dark/Sepia/Solarized themes.
-- Font size and typeface changes trigger a `Formatting Page...` loading state and re-measure CSS-column pagination.
-- Contents opens as a bottom sheet, lists measured chapter start pages, and jumps to the selected chapter.
-- Contents rows show measured chapter start page and measured chapter page span.
-- Saved Items opens as a bottom sheet with All, Bookmarks, Notes, and Highlights tabs. Bookmarks and highlights are functional; rich note editing is upcoming.
+- Appearance opens as a bottom sheet and supports Micro/Tiny/XS/SM/MD/LG/XL text size, Serif/Sans/Literary/Modern/Mono typefaces, Dark/Sepia/Solarized/OLED/Forest themes, and custom background/text color.
+- Appearance also supports Tight/Normal/Relaxed line height and paragraph spacing; both settings trigger repagination.
+- Typeface option labels render in their own font stack as previews.
+- Theme options use swatches; custom colors switch the reader to the custom theme.
+- Font size, typeface, line height, and paragraph spacing changes trigger a `Formatting Page...` loading state and rebuild token-page pagination.
+- Contents opens as a bottom sheet with sections for Front Matter and Chapters.
+- Contents includes jump rows for Cover, Title Page, Hillpoint Ledger, and each measured chapter title page.
+- Chapter rows show measured chapter start page and measured chapter page span.
+- Saved Items opens as a bottom sheet with All, Bookmarks, Notes, and Highlights tabs. Bookmarks, highlights, and typed note creation are functional.
 
 Upcoming reader work:
 
-- Rich note editing.
+- Edit existing notes after saving.
+- Inline Ledger word styling/tooltips.
 - More robust range anchoring for complex multi-page/mutated text selections.
 
 ### Reader Persistence
 
 - Reader progress/settings are saved per book in localStorage keys shaped like `qreader-reader-state:{bookId}`.
-- Saved state includes page index, progress ratio, total pages, settings, and update timestamp.
-- On reopen, the reader restores appearance settings immediately and restores approximate reading position after CSS-column pagination is measured.
+- Saved state includes page index, progress ratio, token `startWordId`, total pages, settings, and update timestamp.
+- On reopen, the reader restores appearance settings immediately and restores reading position by token `startWordId` after pagination is measured.
+- `progressRatio` remains a fallback for older saved states and non-content pages.
 - Library Continue card changes language when saved progress exists.
 
 ### Saved Items
 
 - Saved items are stored per book in localStorage keys shaped like `qreader-saved-items:{bookId}`.
 - Current functional item types: `bookmark` and `highlight`.
-- Future note work should reuse the same collection and add typed note bodies/editing.
+- Notes reuse the same saved-items collection and now open a typed note editor from selected text.
 - Saved item records include type, book id, page index, progress ratio, chapter metadata, label, optional excerpt/note/color, and creation timestamp.
+- Saved item jumps prefer token `startWordId` or `anchor.startWordId`, falling back to stored `pageIndex` only for older saved items.
 - Native text selection is enabled inside the reader flow only.
 - Selection action menu supports Copy, Highlight, and Note.
-- Highlight saves selected text with paragraph character offsets and redraws a visible persistent highlight in the reader flow.
+- Highlight saves selected text with token word ranges and redraws a visible persistent highlight in the reader flow.
 - Saved highlights can be removed from the Saved Items sheet, which removes the visible highlight from the reader flow.
-- Note saves selected text into Saved Items but rich note editing is still upcoming.
+- Note opens a bottom-sheet editor, stores the selected excerpt, typed note body, and token word range, then appears in the Saved Items Notes tab.
+- Existing notes can be edited from Saved Items; updates preserve the original anchor and saved item id.
+- Noted word ranges render in-page with a dotted underline and a small end marker.
 
 ### Reader Search
 
 - Search lives in the top-rail search icon and opens a bottom sheet.
-- Current search scans unlocked chapter body text only.
-- Results show chapter, chapter title, and a short excerpt around the matched phrase.
-- Matches are rendered into the reader text flow as `<mark>` elements.
-- All matches are highlighted softly; the active match is highlighted strongly.
-- As the query changes, the first result becomes active and the reader jumps to the rendered match page by measuring the mark position.
+- Current search scans token pages.
+- Results show chapter, chapter title, and a short token excerpt around the matched phrase.
+- The active match is highlighted by word id range on the current token page.
+- As the query changes, the first result becomes active; next/previous and result taps jump to the matched token page.
 - Search panel includes previous/next result controls.
 - Result taps select that match and jump to it. Future work can improve exact vertical positioning within a page if needed.
 
@@ -188,9 +216,9 @@ The Ledger is an author-controlled companion layer, not an inferred wiki.
 - The Ledger panel is spoiler-aware by current chapter: entries appear only when `firstChapter` is less than or equal to the chapter currently reached.
 - The panel supports category filters for All, People, Places, Terms, Groups, Objects, and Events.
 - Entry detail views show overview text, authored relationships, and timeline beats available through the current chapter.
-- The default HUD includes an "On This Page" strip when visible text matches Ledger aliases. Tapping a chip opens that entry's Ledger detail.
-- "On This Page" should be view-aware: scan visible words in the unobstructed reader viewport, excluding the top rail and bottom dock, rather than matching whole paragraphs that may spill across pages.
-- The view-aware scan writes the collected text into a hidden `.reader-visible-text-source` node, then Ledger matching reads from that node. Word visibility is based on the word rectangle center being inside the readable viewport.
+- The default HUD includes an "On This Page" strip based on the exact token page currently rendered. Tapping a chip opens that entry's Ledger detail.
+- "On This Page" must use `currentPage.tokens` and `getPageLedgerEntries`; do not use DOM geometry, hidden visible-text nodes, or viewport scanning for this feature.
+- Ledger-tagged words render with a subtle underline only when their entry is available through the current chapter. Tapping one opens a compact tooltip with type, name, short definition, and an Open Ledger action for the full entry.
 - Entries can later power a full Ledger view and an “On This Page” context strip in the reader overlay.
 - Include only entries the author wants to chronicle.
 - Avoid ordinary objects unless they matter to the world, plot, tone, or reader memory.
@@ -212,7 +240,7 @@ Future Ledger ideas:
 
 - Progress-aware descriptions by chapter.
 - Deep Dive tabs: Overview, Timeline, Appearances, Related.
-- Automatic “On This Page” detection by matching names/aliases against the visible page text.
+- Deeper "On This Page" controls such as grouping, priority, and manual author pinning.
 - Authored timeline beats stay the source of truth; automatic appearances are supplemental.
 
 Ledger helper utilities live in `src/utils/ledgerUtils.js`.
@@ -222,9 +250,8 @@ Ledger helper utilities live in `src/utils/ledgerUtils.js`.
 - `getLedgerEntryDisplayName`
 - `getTimelineThroughChapter`
 - `resolveLedgerRelationships`
-- `findLedgerEntriesInText`
-
-`findLedgerEntriesInText` supports `minAliasLength` and `excludedAliases` options. The reader's "On This Page" strip currently uses a 3-character minimum so names like Jon can match, while excluding overly broad aliases such as `His`.
+- `findLedgerEntriesInText` for non-page free-text matching
+- `getPageLedgerEntries` for exact token-page Ledger matching
 
 ## Current Library Shape
 
@@ -252,8 +279,12 @@ Keep `App.js` small. It should only choose between the library and reader states
 - `src/components/library/SelectedBookInfo.js` owns selected-book metadata.
 - `src/components/library/ContinueCard.js` owns the continue/read action.
 - `src/components/library/ShelfTiles.js` owns the basic shelf tile list.
-- `src/components/reader/ReaderPreview.js` is temporary until the real reader is built.
+- `src/components/reader/Reader.js` owns reader state, pagination orchestration, persistence, and overlay routing.
+- `src/components/reader/TokenReaderPage.js` renders cover, title, chapter-title, and token content pages.
+- `src/components/reader/ReaderPanels.js` owns reader overlay panels, HUD, saved items, search, TOC, appearance, notes, and Ledger views.
+- `src/components/reader/ReaderIcons.js` owns the reader SVG icon components.
 - `src/utils/bookStatus.js` owns book unlock/progress helpers.
+- Removed obsolete pre-token reader files: `src/utils/BookEngine.js`, `src/hooks/useReaderGestures.js`, and `src/components/reader/ReaderPreview.js`.
 
 ## Keep This Updated
 

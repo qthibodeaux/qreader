@@ -8,7 +8,7 @@ The app is currently centered around **Bae's Anatomy**, with room for future sto
 
 - Mobile-first library home screen with a book carousel.
 - Multi-book content model through `src/content/books.js`.
-- Reflowable full-screen reader using CSS-column pagination.
+- Reflowable full-screen reader using token-based pagination.
 - Swipe/drag page navigation.
 - Adaptive overlay with:
   - Library/back action
@@ -17,13 +17,16 @@ The app is currently centered around **Bae's Anatomy**, with room for future sto
   - saved items
   - table of contents
 - Appearance controls:
-  - XS through XL text sizes
-  - Serif, Sans, Literary, Modern, and Mono typefaces
-  - Dark, Sepia, and Solarized themes
+  - Micro through XL text sizes
+  - Serif, Sans, Literary, Modern, and Mono typefaces with font previews
+  - Tight, Normal, and Relaxed line height and paragraph spacing
+  - Dark, Sepia, Solarized, OLED, Forest, and Custom themes
+  - Custom background and text colors
 - Dynamic re-pagination when text settings change.
 - Reader state persistence per book.
-- Saved Items system with working page bookmarks and future-ready tabs for notes/highlights.
-- Live search with in-text highlighting and previous/next result navigation.
+- Saved Items system with working bookmarks, highlights, and notes.
+- Live token-page search with in-text highlighting and previous/next result navigation.
+- Hillpoint Ledger companion layer with spoiler-aware entries and "On This Page" context chips.
 
 ## Reader Philosophy
 

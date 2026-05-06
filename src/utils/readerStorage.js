@@ -5,6 +5,10 @@ const DEFAULT_READER_SETTINGS = {
   fontSize: 'sm',
   theme: 'dark-paper',
   typeface: 'serif',
+  lineHeight: 'normal',
+  paragraphSpacing: 'normal',
+  customBackground: '#101010',
+  customText: '#d8d0c2',
 };
 
 function getReaderStateKey(bookId) {
@@ -42,7 +46,7 @@ export function getInitialReaderSettings(bookId) {
 
 export function hasReaderProgress(bookId) {
   const saved = loadReaderState(bookId);
-  return Boolean(saved && saved.progressRatio > 0);
+  return Boolean(saved && (saved.startWordId || saved.progressRatio > 0));
 }
 
 export function loadSavedItems(bookId) {
