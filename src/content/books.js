@@ -16,12 +16,12 @@ export const books = [
     releaseLabel: 'Daily release',
   },
   {
-    id: 'after-hillpoint',
-    title: 'After Hillpoint',
-    subtitle: 'A story from the next shelf',
+    id: 'the-chioma-of-hillpoint',
+    title: 'The Chioma of Hillpoint',
+    subtitle: 'The fork in the road',
     label: 'Coming soon',
     description:
-      'A future serialized story will appear here when it is ready for release.',
+      "A coming-soon continuation from Hillpoint's world, split from the current Bae's Anatomy path.",
     author: 'Lantern Reader',
     chapters: [],
     coverAccent: '#6F8FA3',

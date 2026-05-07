@@ -1,5 +1,24 @@
 export const ledgerEntries = [
   {
+    id: 'armands-bayou',
+    name: "Armand's Bayou",
+    type: 'place',
+    shortDefinition: 'A larger city reached by ferry from Hillpoint.',
+    fullDescription:
+      "Armand's Bayou is a cypress-built river city where Michel'le and Christopher go for supplies and to visit Light of the World Church. Its scale, technology, and movement sharpen Christopher's sense that the future has already started somewhere beyond Hillpoint.",
+    firstChapter: 5,
+    aliases: ["Armand's Bayou", 'Bayou'],
+    tags: ['city', 'technology', 'travel'],
+    timeline: [
+      {
+        chapter: 5,
+        title: 'Supply trip',
+        summary:
+          "Michel'le and Christopher take the ferry into Armand's Bayou, where Christopher is struck by the city's devices, shops, and pace.",
+      },
+    ],
+  },
+  {
     id: 'bayou-medical-technologies',
     name: 'Bayou Medical Technologies',
     type: 'group',
@@ -72,6 +91,34 @@ export const ledgerEntries = [
         summary:
           'People in Hillpoint are seeing flyers for Blue Hill Medical, promising treatments from Low Lung Cough care to fast casting broken limbs.',
       },
+      {
+        chapter: 6,
+        title: 'Public demonstration',
+        summary:
+          "Lady Benoit arrives at Hillpoint Baptist with Blue Hill Medical assistants and demonstrates a fast-cast on Treyveon's injured leg.",
+      },
+    ],
+  },
+  {
+    id: 'brother-elias',
+    name: 'Brother Elias',
+    type: 'person',
+    shortDefinition: 'A youth ministry leader at Light of the World Church.',
+    fullDescription:
+      "Brother Elias welcomes Christopher into the Saul's Donkey hunt at Light of the World Church, placing him with city youth and setting up Christopher's first sharp comparison between Hillpoint and Armand's Bayou.",
+    firstChapter: 5,
+    aliases: ['Brother Elias', 'Elias'],
+    tags: ['church', 'youth', 'armands-bayou'],
+    relationships: [
+      { type: 'serves-at', target: 'light-of-the-world-church', label: 'Youth ministry at Light of the World Church' },
+    ],
+    timeline: [
+      {
+        chapter: 5,
+        title: "Saul's Donkey hunt",
+        summary:
+          "Invites Christopher into the church youth hunt and explains the rules.",
+      },
     ],
   },
   {
@@ -93,6 +140,12 @@ export const ledgerEntries = [
         title: 'Emergency arrival',
         summary:
           "Brings Treyveon to Restoration Care after the accident and witnesses the narrator's grace at work.",
+      },
+      {
+        chapter: 6,
+        title: 'Hope from Blue Hill',
+        summary:
+          "Returns with Treyveon and Lady Benoit, embarrassed but hopeful that Blue Hill Medical can relieve what Restoration Care could not fully mend.",
       },
     ],
   },
@@ -122,6 +175,12 @@ export const ledgerEntries = [
         title: 'Only Chioma in the village',
         summary:
           "Michel'le describes herself as the only Chioma in Hillpoint while discussing Blue Hill Medical with Sister Lakethia.",
+      },
+      {
+        chapter: 6,
+        title: 'Title as challenge',
+        summary:
+          "Lady Benoit calls Michel'le Chioma while asking whether she can fully mend Treyveon's leg, turning the title into a public test.",
       },
     ],
   },
@@ -159,6 +218,18 @@ export const ledgerEntries = [
         summary:
           "Christopher is absorbed by the illusion on the gray box when Michel'le needs him to get ready for the supply trip.",
       },
+      {
+        chapter: 5,
+        title: 'Looking past the fence',
+        summary:
+          "In Armand's Bayou, Christopher is drawn to city technology and admits he does not want to be stuck in Hillpoint forever.",
+      },
+      {
+        chapter: 5,
+        title: "Saul's Donkey hunt",
+        summary:
+          "Joins the church youth hunt, feels mocked by city kids, and hears Michel'le frame his curiosity as a gift that needs discipline.",
+      },
     ],
   },
   {
@@ -177,6 +248,18 @@ export const ledgerEntries = [
         title: 'Blue Dusk energy',
         summary:
           'The church community has young people preparing to debut at Blue Dusk, tying faith community and village customs together.',
+      },
+      {
+        chapter: 5,
+        title: 'Light of the World',
+        summary:
+          "Michel'le and Christopher visit Light of the World Church in Armand's Bayou, where Blue Dusk preparations and youth ministry are underway.",
+      },
+      {
+        chapter: 6,
+        title: 'Hillpoint Baptist',
+        summary:
+          'A Seventhday service at Hillpoint Baptist becomes the stage for a public argument over faith, medical tools, and the limits of one healer.',
       },
     ],
   },
@@ -244,6 +327,28 @@ export const ledgerEntries = [
     ],
   },
   {
+    id: 'deacon-morris',
+    name: 'Deacon Morris',
+    type: 'person',
+    shortDefinition: 'An usher leader at Hillpoint Baptist.',
+    fullDescription:
+      "Deacon Morris stands with Nathaniel at the front doors of Hillpoint Baptist and quietly steadies him into the responsibility of ushering.",
+    firstChapter: 6,
+    aliases: ['Deacon Morris'],
+    tags: ['church', 'hillpoint'],
+    relationships: [
+      { type: 'serves-at', target: 'hillpoint-baptist', label: 'Serves at Hillpoint Baptist' },
+    ],
+    timeline: [
+      {
+        chapter: 6,
+        title: 'Ushering with Nathaniel',
+        summary:
+          'Gives Nathaniel a firm nod and later clears his throat when Nathaniel freezes at the door.',
+      },
+    ],
+  },
+  {
     id: 'delphine',
     name: 'Delphine',
     type: 'person',
@@ -282,6 +387,12 @@ export const ledgerEntries = [
         summary:
           'A child with an echophone blares local updates near the ferry queue at The Nexus.',
       },
+      {
+        chapter: 5,
+        title: 'Pocket devices',
+        summary:
+          "Christopher notices pocket echophones in Armand's Bayou and immediately imagines one making Restoration Care more efficient.",
+      },
     ],
   },
   {
@@ -304,6 +415,60 @@ export const ledgerEntries = [
         summary:
           "Village gossip suggests Ernestine's knowledge of potions and brews may be relevant to Gerald's stomach trouble.",
       },
+      {
+        chapter: 6,
+        title: 'Porch report',
+        summary:
+          "Tells Michel'le that Gerald has been home every evening, feeling better, and acting more attentive.",
+      },
+    ],
+  },
+  {
+    id: 'fast-cast',
+    name: 'Fast-cast',
+    type: 'object',
+    shortDefinition: 'A Blue Hill Medical cast that stiffens and shapes itself around a broken limb.',
+    fullDescription:
+      "Fast-cast is a medical technology demonstrated by Lady Benoit's assistants. It wraps around Treyveon's injured leg, stiffens with a hiss, and lets him step without pain in front of the churchyard.",
+    firstChapter: 6,
+    aliases: ['Fast-cast', 'fast-cast', 'fast casting'],
+    tags: ['technology', 'medicine', 'blue-hill-medical'],
+    timeline: [
+      {
+        chapter: 6,
+        title: 'Pain lifted',
+        summary:
+          "Blue Hill Medical uses a fast-cast on Treyveon after Michel'le admits she cannot fully and safely mend his leg with her current tools.",
+      },
+    ],
+  },
+  {
+    id: 'favored',
+    name: 'Favored',
+    type: 'term',
+    shortDefinition: 'People blessed with grace or spiritual gifts.',
+    fullDescription:
+      "Favored names people whose grace or gifts mark them for unusual service. Michel'le connects the term to Chioma work, and Lady Benoit's past as a Favored missionary complicates the divide between faith and technology.",
+    firstChapter: 4,
+    aliases: ['Favored'],
+    tags: ['faith', 'grace', 'healing'],
+    relationships: [
+      { type: 'related-concept', target: 'chioma', label: 'Chioma are among the Favored' },
+      { type: 'related-concept', target: 'grace', label: 'Favored are connected to grace' },
+    ],
+    timeline: [
+      {
+        chapter: 4,
+        title: 'What the Favored do',
+        summary:
+          "Michel'le says technology cannot replace everything the Favored do.",
+      },
+      {
+        chapter: 6,
+        title: "Lady Benoit's past",
+        summary:
+          'Michel\'le remembers Lady Benoit as a Favored missionary with enough grace to matter.',
+      },
     ],
   },
   {
@@ -325,6 +490,12 @@ export const ledgerEntries = [
         title: 'Stomach trouble',
         summary:
           "Comes to Restoration Care for an abnormal stomach ache and receives medicine from Michel'le.",
+      },
+      {
+        chapter: 6,
+        title: 'Lifestyle changes',
+        summary:
+          "Ernestine reports that Gerald has been home every evening and that his stomach has been feeling much better.",
       },
     ],
   },
@@ -389,6 +560,18 @@ export const ledgerEntries = [
         summary:
           "Michel'le continues to feel tired and low on grace as new technology and outside pressure arrive at Restoration Care.",
       },
+      {
+        chapter: 5,
+        title: 'Not mined like coal',
+        summary:
+          "Mother Silvie warns Michel'le that grace is given by God, not something to dig out of herself by force.",
+      },
+      {
+        chapter: 6,
+        title: 'Thread pulled too tight',
+        summary:
+          "When Michel'le reaches for grace in front of Lady Benoit and the churchyard, it feels thin and strained, then pulls farther away.",
+      },
     ],
   },
   {
@@ -416,6 +599,12 @@ export const ledgerEntries = [
         summary:
           'Christopher and Jrue are both distracted by the illusion on the wall during treatment.',
       },
+      {
+        chapter: 5,
+        title: 'Ferry distraction',
+        summary:
+          'Christopher is captivated by a palm-sized gray box showing tiny blue illusions during the ferry ride to Armand\'s Bayou.',
+      },
     ],
   },
   {
@@ -434,6 +623,37 @@ export const ledgerEntries = [
         title: 'The village named',
         summary:
           "Michel'le describes Hillpoint as a small village not far outside of town, with families who have lived there for generations.",
+      },
+      {
+        chapter: 5,
+        title: 'Measured against the city',
+        summary:
+          "Christopher compares Hillpoint to Armand's Bayou and admits the village can feel like it is barely making it.",
+      },
+      {
+        chapter: 6,
+        title: 'Churchyard test',
+        summary:
+          "Hillpoint's churchyard becomes the public place where Blue Hill Medical challenges Michel'le's role in front of her own community.",
+      },
+    ],
+  },
+  {
+    id: 'hillpoint-baptist',
+    name: 'Hillpoint Baptist',
+    type: 'place',
+    shortDefinition: "The church overlooking Hillpoint's south fields.",
+    fullDescription:
+      "Hillpoint Baptist is the village church where Seventhday service gathers the community. Nathaniel ushers there, the sermon names the body's many members, and Lady Benoit stages Blue Hill Medical's public demonstration in the yard.",
+    firstChapter: 6,
+    aliases: ['Hillpoint Baptist'],
+    tags: ['church', 'hillpoint', 'faith'],
+    timeline: [
+      {
+        chapter: 6,
+        title: 'Seventhday service',
+        summary:
+          'The family attends Hillpoint Baptist, where worship, Nathaniel\'s ushering, and the sermon all set up the later confrontation.',
       },
     ],
   },
@@ -476,6 +696,12 @@ export const ledgerEntries = [
         title: 'Awkward moment with Nathaniel',
         summary:
           'Tells Nathaniel she cannot wait to see him at Blue Dusk, only for him to stumble into an awkward response.',
+      },
+      {
+        chapter: 6,
+        title: 'Two words',
+        summary:
+          "Greets Nathaniel at Hillpoint Baptist, where he manages a clear 'Good morning' while serving as an usher.",
       },
     ],
   },
@@ -520,6 +746,12 @@ export const ledgerEntries = [
         summary:
           'Spends mornings repairing, building, or doing odd jobs around town for credits before helping in the practice.',
       },
+      {
+        chapter: 6,
+        title: 'Kitchen counsel',
+        summary:
+          "Tries to help Michel'le process Lady Benoit's demonstration by reminding her that saving Treyveon's life still mattered.",
+      },
     ],
   },
   {
@@ -542,6 +774,58 @@ export const ledgerEntries = [
         title: 'Sprained ankle',
         summary:
           "Michel'le treats Jrue's sprained ankle while he and Christopher remain distracted by the illusion on the wall.",
+      },
+    ],
+  },
+  {
+    id: 'lady-benoit',
+    name: 'Lady Benoit',
+    type: 'person',
+    shortDefinition: 'A former Favored missionary now publicly aligned with Blue Hill Medical.',
+    fullDescription:
+      "Lady Benoit was once known to Michel'le as Sister Benoit, a Favored woman with strong grace. In Chapter 6 she returns as Lady Benoit, using church language and Blue Hill Medical technology to challenge Michel'le's limits before Hillpoint.",
+    firstChapter: 6,
+    aliases: ['Lady Benoit', 'Sister Benoit', 'Benoit'],
+    tags: ['blue-hill-medical', 'favored', 'outside-force', 'faith'],
+    relationships: [
+      { type: 'represents', target: 'blue-hill-medical', label: 'Publicly promotes Blue Hill Medical' },
+      { type: 'related-concept', target: 'favored', label: 'Formerly known as a Favored missionary' },
+    ],
+    timeline: [
+      {
+        chapter: 6,
+        title: 'Arrival at Hillpoint Baptist',
+        summary:
+          "Arrives in a polished Blue Hill Medical carriage and reframes Michel'le's limits as a possible bottleneck to mercy.",
+      },
+      {
+        chapter: 6,
+        title: 'Fast-cast demonstration',
+        summary:
+          "Uses Treyveon's pain and the fast-cast demonstration to prove that Blue Hill Medical can offer relief Michel'le cannot.",
+      },
+    ],
+  },
+  {
+    id: 'light-of-the-world-church',
+    name: 'Light of the World Church',
+    type: 'place',
+    shortDefinition: "A church built into an ancient cypress at the mouth of Armand's Bayou.",
+    fullDescription:
+      "Light of the World Church sits where the river widens toward the gulf, with a lighthouse tower rising through the branches. Michel'le visits Mother Silvie there while Christopher joins the Saul's Donkey hunt.",
+    firstChapter: 5,
+    aliases: ['Light of the World Church'],
+    tags: ['church', 'armands-bayou', 'faith'],
+    relationships: [
+      { type: 'located-in', target: 'armands-bayou', label: "Located in Armand's Bayou" },
+      { type: 'associated-person', target: 'silvie', label: "Mother Silvie's church office is there" },
+    ],
+    timeline: [
+      {
+        chapter: 5,
+        title: 'A city set on a hill',
+        summary:
+          "Michel'le and Christopher arrive during Blue Dusk preparations and meet the church's youth ministry activity.",
       },
     ],
   },
@@ -626,6 +910,30 @@ export const ledgerEntries = [
         summary:
           "Reflects that she is the only Chioma in the village and understands her purpose in Hillpoint.",
       },
+      {
+        chapter: 5,
+        title: "Mother Silvie's counsel",
+        summary:
+          "Admits to Mother Silvie that her grace has felt thin and hears that fear, pride, and exhaustion may be tangled with her service.",
+      },
+      {
+        chapter: 5,
+        title: 'Christopher beyond Hillpoint',
+        summary:
+          "Recognizes Christopher's longing for the wider world and reframes his scattered curiosity as a possible calling that needs discipline.",
+      },
+      {
+        chapter: 6,
+        title: 'Not the whole body',
+        summary:
+          "Hears the sermon on many members as a direct challenge to the way she has been trying to carry too much alone.",
+      },
+      {
+        chapter: 6,
+        title: 'Public limit',
+        summary:
+          "Admits in front of the churchyard that she cannot fully and safely mend Treyveon's leg with the tools she has.",
+      },
     ],
   },
   {
@@ -662,6 +970,18 @@ export const ledgerEntries = [
         summary:
           'Responds awkwardly when Jasia says she cannot wait to see him at Blue Dusk.',
       },
+      {
+        chapter: 6,
+        title: 'Usher pin',
+        summary:
+          'Serves as an usher at Hillpoint Baptist and manages a steadier greeting with Jasia.',
+      },
+      {
+        chapter: 6,
+        title: 'Worry behind Michel\'le',
+        summary:
+          "Michel'le senses Nathaniel's worry behind her during Lady Benoit's public challenge.",
+      },
     ],
   },
   {
@@ -680,6 +1000,28 @@ export const ledgerEntries = [
         title: 'Heartbeat of the village',
         summary:
           "Michel'le describes the dock, market, and causeway as The Nexus, the connection and heartbeat of Hillpoint.",
+      },
+    ],
+  },
+  {
+    id: 'pastor',
+    name: 'Pastor',
+    type: 'person',
+    shortDefinition: 'The pastor at Hillpoint Baptist.',
+    fullDescription:
+      "The pastor preaches from First Corinthians on the body having many members, giving Michel'le a direct spiritual challenge before Lady Benoit arrives.",
+    firstChapter: 6,
+    aliases: ['Pastor', 'the pastor'],
+    tags: ['church', 'faith', 'hillpoint'],
+    relationships: [
+      { type: 'serves-at', target: 'hillpoint-baptist', label: 'Pastor at Hillpoint Baptist' },
+    ],
+    timeline: [
+      {
+        chapter: 6,
+        title: 'Many members',
+        summary:
+          'Preaches that some people are tired because they have been trying to be the whole body by themselves.',
       },
     ],
   },
@@ -784,21 +1126,80 @@ export const ledgerEntries = [
     ],
   },
   {
+    id: 'sauls-donkey-hunt',
+    name: "Saul's Donkey Hunt",
+    type: 'event',
+    shortDefinition: 'A youth activity at Light of the World Church built around the story of Saul.',
+    fullDescription:
+      "The Saul's Donkey hunt sends youth teams around the church grounds looking for carved donkeys and clue cards. For Christopher, it becomes less about winning and more about feeling country, lost, and called toward something beyond what he understands.",
+    firstChapter: 5,
+    aliases: ["Saul's Donkey", "Saul's Donkey hunt", 'donkey hunt', 'donkeys'],
+    tags: ['church', 'youth', 'faith'],
+    relationships: [
+      { type: 'located-at', target: 'light-of-the-world-church', label: 'Held at Light of the World Church' },
+      { type: 'participant', target: 'christopher', label: 'Christopher joins the hunt' },
+      { type: 'organized-by', target: 'brother-elias', label: 'Introduced by Brother Elias' },
+    ],
+    timeline: [
+      {
+        chapter: 5,
+        title: 'Lost is not always lost',
+        summary:
+          "After Christopher's team loses and city kids mock him, Michel'le uses Saul's search for donkeys to teach him about roads that do not yet have names.",
+      },
+    ],
+  },
+  {
+    id: 'seventhday',
+    name: 'Seventhday',
+    type: 'term',
+    shortDefinition: "The weekly worship day in Hillpoint's rhythm.",
+    fullDescription:
+      "Seventhday is the church morning that pulls Hillpoint into motion, with families preparing for service, worship filling Hillpoint Baptist, and fellowship spilling into the yard afterward.",
+    firstChapter: 6,
+    aliases: ['Seventhday'],
+    tags: ['faith', 'time', 'hillpoint'],
+    timeline: [
+      {
+        chapter: 6,
+        title: 'Church morning',
+        summary:
+          "Seventhday brings household delay, worship, fellowship, and Lady Benoit's public arrival.",
+      },
+    ],
+  },
+  {
     id: 'silvie',
     name: 'Silvie',
     type: 'person',
-    shortDefinition: "A woman Michel'le plans to see before Blue Dusk preparations.",
+    shortDefinition: "A respected spiritual mother Michel'le visits at Light of the World Church.",
     fullDescription:
-      "Silvie wants Michel'le to look at a few things while helping get girls ready for Blue Dusk.",
+      "Silvie, addressed as Mother Silvie, carries quiet authority and strong grace. She counsels Michel'le at Light of the World Church about exhaustion, fear, pride, technology, and receiving grace as a daughter rather than forcing it out of herself.",
     firstChapter: 3,
-    aliases: ['Silvie'],
-    tags: ['hillpoint', 'blue-dusk'],
+    aliases: ['Silvie', 'Mother Silvie', 'Miss Silvie'],
+    tags: ['faith', 'grace', 'blue-dusk', 'armands-bayou'],
+    relationships: [
+      { type: 'associated-place', target: 'light-of-the-world-church', label: 'Has an office at Light of the World Church' },
+      { type: 'counsels', target: 'narrator', label: "Counsels Michel'le" },
+    ],
     timeline: [
       {
         chapter: 3,
         title: 'Blue Dusk preparations',
         summary:
           "Michel'le plans to close early so she can see Silvie and help with matters before Blue Dusk.",
+      },
+      {
+        chapter: 5,
+        title: 'Grace is given',
+        summary:
+          "Tells Michel'le that the Lord gives grace and that she cannot mine it out of herself like coal.",
+      },
+      {
+        chapter: 5,
+        title: 'Eyes for what is coming',
+        summary:
+          "Suggests Christopher's restless curiosity may be the Lord giving him eyes for what is coming.",
       },
     ],
   },
@@ -844,6 +1245,12 @@ export const ledgerEntries = [
         title: 'Carriage accident',
         summary:
           'Arrives at Restoration Care with a fractured leg and severe abdominal wound after protecting Celeste.',
+      },
+      {
+        chapter: 6,
+        title: 'Walking without pain',
+        summary:
+          "Blue Hill Medical's fast-cast lets Treyveon step without pain in front of the churchyard, turning his relief into public proof of the technology's power.",
       },
     ],
   },
